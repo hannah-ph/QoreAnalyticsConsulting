@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f3ef;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #c8b89a;
+      --card-bg: #ffffff;
+      --border: #e2ddd6;
+      --highlight: #e8e0d5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 3rem 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .project-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      max-width: 640px;
+      color: var(--text);
+    }
+
+    .project-title em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .project-meta {
+      text-align: right;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      padding: 2.5rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 700px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.15s forwards;
+    }
+
+    .intro p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    /* ── TEAM GRID ── */
+    .team-section {
+      padding: 3rem 4rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.25s forwards;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+
+    /* ── CARD ── */
+    .card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.8rem 2rem;
+      cursor: pointer;
+      position: relative;
+      background: var(--card-bg);
+      transition: background 0.2s ease;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.5s; }
+    .card:nth-child(4) { animation-delay: 0.6s; }
+    .card:nth-child(5) { animation-delay: 0.7s; }
+
+    .card:hover { background: var(--highlight); }
+
+    .card-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 1.2rem;
+      background: var(--highlight);
+      filter: grayscale(20%);
+      transition: filter 0.3s ease;
+    }
+
+    .card:hover .card-photo { filter: grayscale(0%); }
+
+    .card-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--highlight);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .card-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .card-role {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .card-bio {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .card-link:hover { color: var(--muted); border-color: var(--muted); }
+
+    .card-link svg { width: 11px; height: 11px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    footer span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header, .intro, .team-section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-meta { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <p class="project-label">Project Showcase — 2025</p>
+      <!-- EDIT: Replace with your project name. Use <em> for the italic part -->
+      <h1 class="project-title">Your Project <em>Name Here</em></h1>
+    </div>
+    <div class="project-meta">
+      <!-- EDIT: Your school and program -->
+      Your Institution<br/>
+      Program Name
+    </div>
+  </header>
+
+  <div class="intro">
+    <!-- EDIT: One or two sentences about your project -->
+    <p>A short description of what your project does and who it's for. Keep it to 1–2 sentences — professionals are scanning, not reading.</p>
+  </div>
+
+  <section class="team-section">
+    <p class="section-label">Meet the Team</p>
+
+    <div class="team-grid">
+
+      <!-- ════════════════════════════════════════
+           HOW TO EDIT EACH CARD:
+           1. Replace the href URL with the person's LinkedIn profile URL
+           2. Replace "F L" with their first and last initials
+              OR swap the placeholder div for a real photo (see below)
+           3. Fill in their name, role, and bio
+           
+           TO USE A PHOTO instead of initials:
+           Delete the <div class="card-photo-placeholder"> block
+           and replace with:
+           <img class="card-photo" src="photo1.jpg" alt="Person Name" />
+           (The photo file must be in the same folder as this HTML file)
+           ════════════════════════════════════════ -->
+
+      <!-- TEAM MEMBER 1 -->
+      <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME-HERE" target="_blank" rel="noopener">
+        <div class="card-photo-placeholder">F L</div>
+        <p class="card-name">Full Name</p>
+        <p class="card-role">Role on Project</p>
+        <p class="card-bio">2–3 sentences about this person's contribution to the project and their relevant background or skills.</p>
+        <span class="card-link">
+          LinkedIn
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- TEAM MEMBER 2 -->
+      <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME-HERE" target="_blank" rel="noopener">
+        <div class="card-photo-placeholder">F L</div>
+        <p class="card-name">Full Name</p>
+        <p class="card-role">Role on Project</p>
+        <p class="card-bio">2–3 sentences about this person's contribution to the project and their relevant background or skills.</p>
+        <span class="card-link">
+          LinkedIn
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- TEAM MEMBER 3 -->
+      <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME-HERE" target="_blank" rel="noopener">
+        <div class="card-photo-placeholder">F L</div>
+        <p class="card-name">Full Name</p>
+        <p class="card-role">Role on Project</p>
+        <p class="card-bio">2–3 sentences about this person's contribution to the project and their relevant background or skills.</p>
+        <span class="card-link">
+          LinkedIn
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- TEAM MEMBER 4 -->
+      <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME-HERE" target="_blank" rel="noopener">
+        <div class="card-photo-placeholder">F L</div>
+        <p class="card-name">Full Name</p>
+        <p class="card-role">Role on Project</p>
+        <p class="card-bio">2–3 sentences about this person's contribution to the project and their relevant background or skills.</p>
+        <span class="card-link">
+          LinkedIn
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- TEAM MEMBER 5 -->
+      <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME-HERE" target="_blank" rel="noopener">
+        <div class="card-photo-placeholder">F L</div>
+        <p class="card-name">Full Name</p>
+        <p class="card-role">Role on Project</p>
+        <p class="card-bio">2–3 sentences about this person's contribution to the project and their relevant background or skills.</p>
+        <span class="card-link">
+          LinkedIn
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <!-- EDIT: Your school, program, and year -->
+    <span>Your Institution · Program Name · 2025</span>
+    <span>Project Showcase</span>
+  </footer>
+
+</body>
+</html>
