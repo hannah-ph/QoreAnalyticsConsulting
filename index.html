@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Qore Analytical Consulting — Project Team</title>
+  <title>Qore Analytics Consulting — Project Team</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --navy:       #001428;
-      --navy-mid:   #0f2d4b;
       --teal-deep:  #1e4b69;
       --teal:       #1e5a78;
       --teal-light: #2d6978;
@@ -22,6 +21,7 @@
       --card-bg:    #ffffff;
       --hover:      #edf2f7;
       --ice:        #ddeaf3;
+      --photo-bg:   #e8f0f5;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,25 +31,38 @@
     header {
       background: var(--white);
       border-bottom: 3px solid var(--teal-deep);
-      padding: 1.2rem 3rem;
+      padding: 1.2rem 3rem 1.4rem;
       opacity: 0;
       animation: fadeUp 0.6s ease forwards;
     }
 
+    /* Row 1: 3-column logo bar */
     .header-logos {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
-    .logo-slot {
+    .logo-left {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
+    }
+
+    .logo-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      height: 52px;
+      text-align: center;
+    }
+
+    .logo-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .logo-slot img {
@@ -59,41 +72,43 @@
       object-fit: contain;
     }
 
-    .logo-placeholder {
-      height: 52px;
-      min-width: 130px;
-      border: 1.5px dashed var(--border);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.65rem;
+    .team-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .team-name span {
+      font-style: italic;
+      color: var(--teal-deep);
+    }
+
+    .team-tagline {
+      font-size: 0.6rem;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      padding: 0 1rem;
-      opacity: 0.6;
+      color: var(--muted);
+      margin-top: 0.2rem;
     }
 
     .header-divider {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 0 0 1rem;
+      margin: 0 0 1.2rem;
     }
 
-    .header-bottom {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
+    /* Row 2: project title + badge */
     .header-title-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.6rem;
+      margin-bottom: 0.4rem;
     }
 
     .header-title {
@@ -126,7 +141,7 @@
       font-weight: 300;
       color: var(--muted);
       line-height: 1.6;
-      max-width: 520px;
+      max-width: 600px;
     }
 
     /* ── ACCENT BAR ── */
@@ -197,31 +212,34 @@
     .card:nth-child(3) { animation-delay: 0.45s; }
     .card:nth-child(4) { animation-delay: 0.55s; }
 
-    .card-photo {
+    .card-photo-wrap {
       width: 100%;
       aspect-ratio: 3/4;
-      object-fit: cover;
-      display: block;
+      background: var(--photo-bg);
       margin-bottom: 1.1rem;
-      filter: grayscale(10%);
-      transition: filter 0.3s ease;
-    }
-
-    .card:hover .card-photo { filter: grayscale(0%); }
-
-    .card-photo-placeholder {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: linear-gradient(155deg, var(--navy) 0%, var(--teal-deep) 55%, var(--teal-light) 100%);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.1rem;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-photo { transform: scale(1.02); }
+
+    .card-initials {
       font-family: 'DM Serif Display', serif;
       font-size: 2.6rem;
       font-style: italic;
-      color: rgba(255,255,255,0.55);
+      color: rgba(30, 75, 105, 0.3);
       letter-spacing: 0.05em;
+      user-select: none;
     }
 
     .card-name {
@@ -291,48 +309,62 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .team-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 720px) {
       header, .team-section, footer { padding-left: 1.4rem; padding-right: 1.4rem; }
-      .logo-placeholder { min-width: 100px; font-size: 0.58rem; }
+      .header-logos { grid-template-columns: auto 1fr auto; }
     }
 
     @media (max-width: 500px) {
       .team-grid { grid-template-columns: 1fr; }
-      .header-logos { justify-content: flex-start; }
-      .logo-placeholder { min-width: 90px; }
+      .header-logos {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+        gap: 0.8rem;
+      }
+      .logo-left, .logo-right { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
   <header>
+
+    <!-- Row 1: icon left | team name center | school logo right -->
     <div class="header-logos">
-      <div class="logo-slot">
-        <img src="data:image/jpeg;base64,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" alt="Qore Analytical Consulting" />
+
+      <div class="logo-left logo-slot">
+        <img src="data:image/png;base64,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" alt="Qore Analytical Consulting" />
       </div>
-      <!-- EDIT: Replace with client logo file once you have it
-           <div class="logo-slot"><img src="client1.jpg" alt="Client Name" /></div> -->
-      <div class="logo-placeholder">Client Logo</div>
-      <!-- EDIT: Replace with partner logo file
-           <div class="logo-slot"><img src="BCITlogo.jpg" alt="Parno" /></div> -->
-      <div class="logo-slot"><img src="BCITlogo.jpg" alt="BCIT" /></</div>
+
+      <div class="logo-center">
+        <!-- EDIT: Your consulting team name -->
+        <p class="team-name">Qore <span>Analytics</span> Consulting</p>
+      </div>
+
+      <div class="logo-right logo-slot">
+        <!-- EDIT: Replace src with your school logo filename once uploaded to GitHub -->
+        <img src="BCITlogo.jpg" alt="BCIT" />
+      </div>
+
     </div>
 
     <hr class="header-divider" />
 
-    <div class="header-bottom">
-      <div class="header-title-row">
-        <!-- EDIT: Your project name -->
-        <h1 class="header-title">Your Project <em>Name Here</em></h1>
-        <span class="header-badge">BITMAN Showcase — 2026</span>
-      </div>
-      <!-- EDIT: One line describing the project -->
-      <p class="header-desc">A brief description of what your project does and the problem it solves for your client.</p>
+    <!-- Row 2: project title + badge, description below -->
+    <div class="header-title-row">
+      <!-- EDIT: Your project name -->
+      <h1 class="header-title">Your Project <em>Name Here</em></h1>
+      <span class="header-badge">BITMAN Showcase — 2026</span>
     </div>
+    <!-- EDIT: One sentence about your project -->
+    <p class="header-desc">A brief description of what your project does and the problem it solves for your client.</p>
+
   </header>
 
   <div class="accent-bar"></div>
@@ -344,18 +376,31 @@
 
     <div class="team-grid">
 
+      <!-- ════════════════════════════════════════
+           HOW TO EDIT EACH CARD:
+           1. Replace href with LinkedIn profile URL
+           2. To add a real photo, replace inside card-photo-wrap:
+              Delete: <span class="card-initials">F L</span>
+              Add:    <img class="card-photo" src="photo1.jpg" alt="Name" />
+           3. Fill in name, role, and bio
+           ════════════════════════════════════════ -->
+
       <!-- TEAM MEMBER 1 -->
       <a class="card" href="https://www.linkedin.com/in/pham-hannah/" target="_blank" rel="noopener">
-        <img class="card-photo" src="hannah.jpg" alt="Full Name" />
+        <div class="card-photo-wrap">
+          <img class="card-photo" src="hannah.jpg" alt="Hannah Pham" />
+        </div>
         <p class="card-name">Hannah Pham</p>
-        <p class="card-role">IT Analyst</p>
+        <p class="card-role">Role on Project</p>
         <p class="card-bio">2–3 sentences about this person's contribution and relevant background or skills.</p>
         <span class="card-link">LinkedIn <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
       </a>
 
       <!-- TEAM MEMBER 2 -->
       <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener">
-        <div class="card-photo-placeholder">F L</div>
+        <div class="card-photo-wrap">
+          <span class="card-initials">F L</span>
+        </div>
         <p class="card-name">Full Name</p>
         <p class="card-role">Role on Project</p>
         <p class="card-bio">2–3 sentences about this person's contribution and relevant background or skills.</p>
@@ -364,7 +409,9 @@
 
       <!-- TEAM MEMBER 3 -->
       <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener">
-        <div class="card-photo-placeholder">F L</div>
+        <div class="card-photo-wrap">
+          <span class="card-initials">F L</span>
+        </div>
         <p class="card-name">Full Name</p>
         <p class="card-role">Role on Project</p>
         <p class="card-bio">2–3 sentences about this person's contribution and relevant background or skills.</p>
@@ -373,7 +420,9 @@
 
       <!-- TEAM MEMBER 4 -->
       <a class="card" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener">
-        <div class="card-photo-placeholder">F L</div>
+        <div class="card-photo-wrap">
+          <span class="card-initials">F L</span>
+        </div>
         <p class="card-name">Full Name</p>
         <p class="card-role">Role on Project</p>
         <p class="card-bio">2–3 sentences about this person's contribution and relevant background or skills.</p>
@@ -384,7 +433,7 @@
   </section>
 
   <footer>
-    <span>Qore Analytics Consulting · BITMAN Showcase · 2026</span>
+    <span>Qore Analytical Consulting · Project Showcase · 2025</span>
     <span>BCIT · Business Information Technology Management</span>
   </footer>
 
